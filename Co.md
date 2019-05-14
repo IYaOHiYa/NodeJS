@@ -10,7 +10,7 @@ Co的建立是基於兩個ES6的玩意兒上
 由於Co是別人編寫的庫，所以需要用npm安裝一下
 
 1. npm install co --save
-2. npm install @typs/co --save //安裝typescript庫，才有提示
+2. npm install @types/co --save //安裝typescript庫，才有提示
 
 ## function co
 將多個Promise的物件包起來，最後的結果在用then取得
