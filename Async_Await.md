@@ -29,4 +29,21 @@
   }
 
   main();
+  
+  
+  //或是直接執行
+(async() => {
+  try{
+    let ans1 = await getWaitVal(true);
+    console.log(ans1);
+
+    let ans2 = await getWaitVal(false);
+    console.log(ans2);
+
+    let ans3 = await getWaitVal(true);
+    console.log(ans3);
+  }catch(err){
+    console.log(err);
+  }
+})();
 ```
