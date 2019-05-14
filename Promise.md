@@ -5,8 +5,66 @@
 
 如需先等func1結束，在做func2，func2結束，在做func3...
 
+Ex.異步
 ```js
-  function func1(()=>{
-    
-  }):
+  function func1(): void{
+    setTimeout(()=>{
+      console.log("Im func1");
+    }, 3000);
+  }
+  
+  function func2(): void{
+    console.log("Im func2");
+  }
+  
+  function main(): void{
+    func1();
+    func2();
+  }
+  
+  main(); 
+  /*
+    結果為Im func2先出來
+    在來才是Im func1
+  */
 ```
+
+為了讓func1先執行，我們可能會這樣做
+```js
+  function func1(cb: Function): void{
+    setTimeout(()=>{
+      console.log("Im func1");
+      cb();
+    }, 3000);
+  }
+  
+  function func2(cb: Function): void{
+    setTimeout(()=>{
+      console.log("Im func2");
+      cb();
+    }, 3000);
+  }
+
+  function func3(cb: Function): void{
+    setTimeout(()=>{
+      console.log("Im func3");
+      cb();
+    }, 3000);
+  }
+  
+  function main(): void{
+    func1(()=>{
+      func2(()=>{
+        func3(()=>{});
+      })
+    });
+  }
+  
+  main(); 
+  /*
+    3秒後 func1
+    3秒後 func2
+    3秒後 func3
+  */
+```
+於是你的回調就會越來越深...就像愛情一樣，越陷越深
