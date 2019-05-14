@@ -69,7 +69,7 @@ Ex.異步
 ```
 於是你的回調就會越來越深...就像愛情一樣，越陷越深
 
-###### 回到主題Promise
+## 回到主題Promise
 
 Promise 是可以對非同步進行處理以及各種操作的東西
 通常Promise會包含著三種狀態
@@ -89,7 +89,7 @@ Ex.
     });
   }
   
-  function main(){
+  function main(): void{
     getSomething(1)
       .then((myVal)=>{
         console.log(myVal); //Successed
@@ -110,3 +110,40 @@ Ex.
   main();
 ```
 
+基本上只要是有回傳resolve或reject的狀態下，都可以一直.then下去，then到你不想then為止。
+Ex.
+```js
+  function getSomething(myVal: number): Promise<string>{
+    return new Promise((resolve, reject)=>{
+      if(myVal > 0){
+        resolve("Successed");
+      }
+      reject("Failed");
+    });
+  }
+  
+  function main(): void{
+    getSomething(1)
+      .then((myVal)=>{
+        console.log(myVal);
+        return getSomething(2);
+      })
+      .then((myVal)=>{
+        console.log(myVal);
+        return getSomething(3);
+      })
+      .then((myVal)=>{
+        console.log(myVal); 
+        return getSomething(4);
+      })
+      .then((myVal)=>{
+        console.log(myVal);
+        return getSomething(-5);
+      })
+      .catch((err)=>{
+        console.log(err);
+      });
+  }
+  
+  main();
+```
