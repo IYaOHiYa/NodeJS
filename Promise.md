@@ -68,3 +68,45 @@ Ex.異步
   */
 ```
 於是你的回調就會越來越深...就像愛情一樣，越陷越深
+
+###### 回到主題Promise
+
+Promise 是可以對非同步進行處理以及各種操作的東西
+通常Promise會包含著三種狀態
+- resolve 成功
+- reject  失敗
+- pending 處理中，結果尚未知曉
+
+馬上來範例
+Ex.
+```js
+  function getSomething(myVal: number): Promise<string>{
+    return new Promise((resolve, reject)=>{
+      if(myVal > 0){
+        resolve("Successed");
+      }
+      reject("Failed");
+    });
+  }
+  
+  function main(){
+    getSomething(1)
+      .then((myVal)=>{
+        console.log(myVal); //Successed
+      })
+      .catch((err)=>{
+        console.log(err); //不會顯示，因為myVal > 0
+      });
+      
+    getSomething(-1)
+      .then((myVal)=>{
+        console.log(myVal); //不會顯示，因為myVal <= 0
+      })
+      .catch((err)=>{
+        console.log(err); //Failed
+      });
+  }
+  
+  main();
+```
+
